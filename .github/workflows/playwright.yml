@@ -31,3 +31,18 @@ jobs:
         with:
           name: playwright-json-report
           path: playwright-report/report.json
+      - name: Send email notification
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.example.com
+          server_port: 465
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: Playwright Test Results - ${{ job.status }}
+          to: shribarath.ganapathisubramanian@ideas2it.com
+          from: Playwright CI <your@email.com>
+          body: |
+            The Playwright tests have completed.
+            Status: ${{ job.status }}
+            See the full report in the GitHub Actions artifacts.
