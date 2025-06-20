@@ -10,7 +10,7 @@ test('1: should show error for invalid password', async ({ page }) => {
     await loginPage.goto();
     await loginPage.clearAndFillUsername('student');
     await loginPage.clearAndFillPassword('hjhjhjhj');
-    await loginPage.submitButton.click();
+    await loginPage.locators.submitButton.click();
     await expect(page.getByText(ValidationMessages.INVALID_PASSWORD).first()).toBeVisible();
 });
 
@@ -22,7 +22,7 @@ test('2: should show error for invalid username', async ({ page }) => {
     await loginPage.clearAndFillUsername('hjhjhj');
     await loginPage.pressTabOnUsername();
     await loginPage.clearAndFillPassword('hjhjjh');
-    await loginPage.submitButton.click();
+    await loginPage.locators.submitButton.click();
     await expect(page.getByText(ValidationMessages.INVALID_USERNAME).first()).toBeVisible();
 });
 
@@ -34,7 +34,7 @@ test('3: should login successfully with valid credentials', async ({ page }) => 
     await loginPage.clearAndFillUsername('student');
     await loginPage.pressTabOnUsername();
     await loginPage.clearAndFillPassword('Password123');
-    await loginPage.submitButton.click();
+    await loginPage.locators.submitButton.click();
     await expect(page).toHaveURL(new RegExp(Constants.LOGIN_SUCCESS_URL));
     await expect(page.getByText(Constants.LOGIN_SUCCESS_TEXT, { exact: false })).toBeVisible();
 });
